@@ -101,8 +101,7 @@ def main():
 
         1. Provide the parameters that best describe your health and characteristics.
         2. Click the "Predict" button.
-        3. Wait for the application to process your information and provide you with a prediction (yes or no) regarding your heart disease status.This user-friendly tool can quickly assess your heart disease risk based on the information you provide.
-        
+        3. Wait for the application to process your information.
         Resources and facts: https://www.cdc.gov/heartdisease/prevention.htm
                     
         **Please note that the results from this app are not a medical diagnosis. It's essential to consult a human doctor for any health concerns.**
@@ -127,6 +126,31 @@ def main():
         fig.update_layout(xaxis_title="Feature", yaxis_title="Importance")
         st.plotly_chart(fig)
 
+        def plot_correlation_heatmap(df, target_name):
+
+    
+            corr = df.corr()
+    
+            fig = px.imshow(corr, text_auto=True, aspect="auto",
+                    labels=dict(x="Feature", y="Feature", color="Correlation"),
+                    title="Feature Correlation Heatmap")
+            return fig
+        
+
+        heart_df = load_dataset()       
+        target_name = 'HadHeartAttack'
+        fig = plot_correlation_heatmap(heart_df, target_name)
+        st.plotly_chart(fig)
+
+        def plot_correlation_bubble(df, target_name):
+            corr = df.corr()[target_name].sort_values(ascending=False)
+            fig = px.scatter(x=corr.index, y=corr.values, size=np.abs(corr.values),
+                     labels={'x': 'Feature', 'y': 'Correlation with Heart Attack'},
+                     title="Feature Correlations with Heart Attack Status")
+            return fig
+
+        fig = plot_correlation_bubble(heart_df, target_name)
+        st.plotly_chart(fig)
                 
 
         fig = px.pie(values=prediction_prob[0], names=["Healthy", "Heart Disease"],title="Heart Disease Prediction Probability")
@@ -144,36 +168,6 @@ def main():
             'threshold': {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': prediction_prob[0][1]}}))
         st.plotly_chart(fig)
 
-
-
-        def plot_correlation_heatmap(df, target_name):
-
-    
-            corr = df.corr()
-    
-            fig = px.imshow(corr, text_auto=True, aspect="auto",
-                    labels=dict(x="Feature", y="Feature", color="Correlation"),
-                    title="Feature Correlation Heatmap")
-            return fig
-        
-
-        heart_df = load_dataset()       
-        target_name = 'HadHeartAttack'
-        fig = plot_correlation_heatmap(heart_df, target_name)
-        st.plotly_chart(fig)
-
-
-
-
-        def plot_correlation_bubble(df, target_name):
-            corr = df.corr()[target_name].sort_values(ascending=False)
-            fig = px.scatter(x=corr.index, y=corr.values, size=np.abs(corr.values),
-                     labels={'x': 'Feature', 'y': 'Correlation with Heart Attack'},
-                     title="Feature Correlations with Heart Attack Status")
-            return fig
-
-        fig = plot_correlation_bubble(heart_df, target_name)
-        st.plotly_chart(fig)
 
 
         if prediction == 0:
