@@ -102,6 +102,7 @@ def main():
         1. Provide the parameters that best describe your health and characteristics.
         2. Click the "Predict" button.
         3. Wait for the application to process your information.
+        
         Resources and facts: https://www.cdc.gov/heartdisease/prevention.htm
                     
         **Please note that the results from this app are not a medical diagnosis. It's essential to consult a human doctor for any health concerns.**
