@@ -173,10 +173,10 @@ def main():
 
         if prediction == 0:
             st.markdown(f"<span style='color: green'>*Your probability of having heart disease is {round(prediction_prob[0][1] * 100, 2)}%. You are healthy!*</span>", unsafe_allow_html=True)
-            st.image("heart-okay.jpg", caption="**Congrats - It appears that your heart is in good condition - Dr. Machine Learning**")
+            st.image("heart-okay.jpg", caption="*Congrats - It appears that your heart is in good condition - Dr. Machine Learning*")
         else:
             st.markdown(f"<span style='color: red'>*Your probability of having heart disease is {round(prediction_prob[0][1] * 100, 2)}%. It sounds like you are not healthy.*</span>", unsafe_allow_html=True)
-            st.image("heart-bad.jpg", caption="**I'm concerned about the state of your heart, get it checked regularly with a human doctor - Dr. Machine Learning**")
+            st.image("heart-bad.jpg", caption="*I'm concerned about the state of your heart, get it checked regularly with a human doctor - Dr. Machine Learning*")
 
 if __name__ == "__main__":
     main()
